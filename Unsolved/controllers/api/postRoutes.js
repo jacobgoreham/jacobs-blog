@@ -84,3 +84,56 @@ router.post("/", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+
+//updating posts
+router.put("/:id", withAuth, (req, res) => {
+  Post.update(
+    {
+      title: req.body.title,
+      content: req.body.post_content,
+    },
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  )
+    .then((dbPostData) => {
+      if (!dbPostData) {
+        res.status(404).json({
+          message: "No post with this ID...",
+        });
+        return;
+      }
+      res.json(dbPostData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+//delete post
+router.delete("/:id", withAuth, (req, res) => {
+  //absolutely destroys the specified post if you have auth
+  Post.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbPostData) => {
+      if (!dbPostData) {
+        res.status(404).json({
+          message: "No post with this ID...",
+        });
+        return;
+      }
+      res.json(dbPostData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+module.exports = router;
