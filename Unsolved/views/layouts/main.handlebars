@@ -3,32 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog</title>
-    <link rel="stylesheet" href="/css/jass.css" />
+    <title>The Tech Blog</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
 
   <body>
-    <header class="display-flex justify-space-between align-center p-2">
-      <h1>
-        User Registry
-      </h1>
-      <!-- TODO: Add a comment describing the functionality of this helper -->
-      {{#if logged_in}}
+    <div class="wrapper">
+      <header>
+        <h1>
+          <a href="/">home</a>
+        </h1>
         <nav>
-          <button class="btn" id="logout">logout</button>
+          {{#if loggedIn}}
+            <a href="/dashboard">dashboard</a>
+            <button id="logout" class="btn-no-style logout">logout</button>
+          {{else}}
+            <a href="/login">login</a>
+          {{/if}}
         </nav>
-      {{/if}}
-    </header>
-    <main class="container container-fluid mt-5">
-      {{{body}}}
-    </main>
-    <footer>
+      </header>
+      <div class="site-row">
+        <div class="site-name">
+          <h1>The Tech Blog</h1>
+        </div>
+      </div>
+      <main>
+        {{{body}}}
+      </main>
+    </div>
 
-    </footer>
-
-    <!-- TODO: Add a comment describing the functionality of this helper -->
-    {{#if logged_in}}
-      <script src="/js/logout.js"></script>
+    {{#if loggedIn}}
+      <script src="/javascript/logout.js"></script>
     {{/if}}
   </body>
 
